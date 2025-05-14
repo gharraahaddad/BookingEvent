@@ -7,6 +7,7 @@ use App\Http\Requests\EventUpdateRequest;
 use App\Http\Resources\EventResource;
 use App\Models\Event;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class EventController extends Controller
 {
@@ -19,7 +20,7 @@ class EventController extends Controller
         // return EventResource::collection($events);
          $query = Event::with('user');
 
-   
+
     if ($request->filled('date')) {
         $query->whereDate('date', $request->input('date'));
     }
@@ -54,15 +55,15 @@ class EventController extends Controller
  // دمج المستخدم المصادق به مع البيانات المرسلة
     $event = Event::create(array_merge(
         $request->validated(),
-        ['created_by' => auth()->id()]
+        ['created_by' =>  Auth::id()]
     ));
         return response()->json([
             'message' => 'Event created successfully',
             'data' => new EventResource($event->load('user')),
              'image'=>$imagePath
         ], 201);
-    }
 
+    }
     public function show($id)
     {
   $event = Event::with('user')->findOrFail($id);

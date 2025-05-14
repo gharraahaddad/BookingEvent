@@ -17,6 +17,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('event', EventController::class);
      Route::apiResource('booking', BookingController::class);
     Route::apiResource('user', UserController::class);
+    Route::post('/update-profile-image', [UserController::class, 'updateProfileImage']);
+
 
 });
 

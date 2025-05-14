@@ -15,10 +15,10 @@ class EventFactory extends Factory
     public function definition(): array
     {
         return [
-     'title' => $this->faker->sentence(3),
+     'title' => $this->faker->address(),
             'description' => $this->faker->paragraph(),
             'date' => Carbon::now()->addDays(rand(1, 60))->toDateString(),
-            'capacity' => $this->faker->numberBetween(10, 100),
+            'capacity' => $this->faker->numberBetween(10, 1000),
             'image' => null,
             'created_by' => \App\Models\User::inRandomOrder()->first()->id,
         ];
